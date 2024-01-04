@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toonweb/widgets/button.dart';
+import 'package:toonweb/widgets/currency_card.dart';
 
 class Player {
   String? name;
@@ -26,7 +27,7 @@ class App extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 80,
+                  height: 30,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -54,7 +55,7 @@ class App extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 120,
+                  height: 10,
                 ),
                 Center(
                   child: Text(
@@ -77,7 +78,7 @@ class App extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 5,
                 ),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +94,7 @@ class App extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -117,70 +118,28 @@ class App extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
-                Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 58, 58, 58),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Euro',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                const Text(
-                                  '6 428',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  'EUR',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.8),
-                                    fontSize: 20,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Transform.scale(
-                          scale: 2.2,
-                          child: Transform.translate(
-                            offset: const Offset(3, 12),
-                            child: const Icon(
-                              Icons.euro_rounded,
-                              color: Colors.white,
-                              size: 88,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                const CurrenyCard(
+                  name: 'Euro',
+                  code: 'EUR',
+                  amount: '6 428',
+                  icon: Icons.euro_rounded,
+                  isInverted: false,
+                ),
+                const CurrenyCard(
+                  name: 'Bitcoin',
+                  code: 'BTC',
+                  amount: '5 512',
+                  icon: Icons.currency_bitcoin,
+                  isInverted: true,
+                ),
+                const CurrenyCard(
+                  name: 'YEN',
+                  code: 'YEN',
+                  amount: '7 777',
+                  icon: Icons.currency_yen_sharp,
+                  isInverted: false,
                 )
               ],
             ),
