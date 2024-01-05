@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toonweb/widgets/button.dart';
 import 'package:toonweb/widgets/currency_card.dart';
@@ -20,8 +19,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: const Color(0xFF181818),
-          body: Padding(
+        backgroundColor: const Color(0xFF181818),
+        body: SingleChildScrollView(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,13 +29,13 @@ class App extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
+                        Text(
                           'Hay, Selena',
                           style: TextStyle(
                             color: Colors.white,
@@ -46,7 +46,8 @@ class App extends StatelessWidget {
                         Text(
                           'Welcome back',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white,
+                            // color: Colors.white.withOpacity(0.8),
                             fontSize: 18,
                           ),
                         ),
@@ -84,13 +85,15 @@ class App extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Button(
-                        text: 'Transfer',
-                        bgColor: Color(0xFFF1B33B),
-                        textColor: Colors.black),
+                      text: 'Transfer',
+                      bgColor: Color(0xFFF1B33B),
+                      textColor: Colors.black,
+                    ),
                     Button(
-                        text: 'Request',
-                        bgColor: Color(0xFF1F2123),
-                        textColor: Colors.white),
+                      text: 'Request',
+                      bgColor: Color(0xFF1F2123),
+                      textColor: Colors.white,
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -126,6 +129,7 @@ class App extends StatelessWidget {
                   amount: '6 428',
                   icon: Icons.euro_rounded,
                   isInverted: false,
+                  order: 1,
                 ),
                 const CurrenyCard(
                   name: 'Bitcoin',
@@ -133,6 +137,7 @@ class App extends StatelessWidget {
                   amount: '5 512',
                   icon: Icons.currency_bitcoin,
                   isInverted: true,
+                  order: -1,
                 ),
                 const CurrenyCard(
                   name: 'YEN',
@@ -140,10 +145,13 @@ class App extends StatelessWidget {
                   amount: '7 777',
                   icon: Icons.currency_yen_sharp,
                   isInverted: false,
-                )
+                  order: -3,
+                ),
               ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
