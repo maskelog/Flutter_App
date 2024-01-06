@@ -20,6 +20,12 @@ class _AppState extends State<App> {
     });
   }
 
+  void onMinus() {
+    setState(() {
+      counter = counter - 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,10 +44,18 @@ class _AppState extends State<App> {
                   '$counter',
                   style: const TextStyle(fontSize: 30),
                 ),
-                IconButton(
-                    iconSize: 40,
-                    onPressed: onClicked,
-                    icon: const Icon(Icons.add_box_rounded))
+                Row(
+                  children: [
+                    IconButton(
+                        iconSize: 40,
+                        onPressed: onClicked,
+                        icon: const Icon(Icons.add_box_rounded)),
+                    IconButton(
+                        iconSize: 40,
+                        onPressed: onMinus,
+                        icon: const Icon(Icons.remove_circle_rounded)),
+                  ],
+                )
               ],
             ),
           ),
