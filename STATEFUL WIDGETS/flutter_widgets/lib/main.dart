@@ -44,6 +44,7 @@ class _AppState extends State<App> {
                 ),
                 for (var n in numbers) Text('$n'),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                         iconSize: 40,
