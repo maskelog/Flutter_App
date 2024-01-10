@@ -11,31 +11,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
           Flexible(
             flex: 1,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.red,
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                '25:00',
+                style: TextStyle(
+                  color: Theme.of(context).cardColor,
+                  fontSize: 80,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
           Flexible(
-            flex: 2,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.green,
-              ),
-            ),
+            flex: 3,
+            child: Container(),
           ),
           Flexible(
             flex: 1,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
+            child: Container(),
           ),
         ],
       ),
