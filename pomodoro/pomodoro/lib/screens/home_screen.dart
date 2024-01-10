@@ -18,10 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 1,
             child: Container(
               alignment: Alignment.bottomCenter,
-              child: Text(
+              child: const Text(
                 '25:00',
                 style: TextStyle(
-                  color: Theme.of(context).cardColor,
+                  color: Colors.white,
                   fontSize: 80,
                   fontWeight: FontWeight.w600,
                 ),

@@ -27,9 +27,7 @@ class _AppState extends State<App> {
         ),
         cardColor: const Color(0xFFF4EDDB),
       ),
-      home: const Scaffold(
-        body: Center(),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
