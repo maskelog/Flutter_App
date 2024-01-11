@@ -18,11 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
       totalSeconds = totalSeconds - 1;
     });
   }
+
   void onStartPressed() {
     timer = Timer.periodic(
       const Duration(seconds: 1),
-      , onTick,
-      );
+      onTick,
+    );
   }
 
   @override
@@ -63,7 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(40),),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(40),
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
