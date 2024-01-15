@@ -50,13 +50,28 @@ class HomeScreen extends StatelessWidget {
         var webtoon = snapshot.data![index];
         return Column(
           children: [
-            Image.network(
-              webtoon.thumb,
-              headers: const {
-                'Referer': 'https://comic.naver.com',
-              },
+            Container(
+              width: 250,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Image.network(
+                webtoon.thumb,
+                headers: const {
+                  'Referer': 'https://comic.naver.com',
+                },
+              ),
             ),
-            Text(webtoon.title),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              webtoon.title,
+              style: const TextStyle(
+                fontSize: 22,
+              ),
+            ),
           ],
         );
       },
