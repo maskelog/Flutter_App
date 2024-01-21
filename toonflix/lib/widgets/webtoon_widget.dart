@@ -5,11 +5,11 @@ class Webtoon extends StatelessWidget {
   final String title, thumb, id;
 
   const Webtoon({
-    super.key,
+    Key? key,
     required this.title,
     required this.thumb,
     required this.id,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,12 @@ class Webtoon extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 22,
-            ),
+            style: const TextStyle(fontSize: 16),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ],
       ),

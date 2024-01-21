@@ -36,30 +36,11 @@ class _LikedScreenState extends State<LikedScreen> {
     return likedWebtoons;
   }
 
-  ListView makeList(AsyncSnapshot<List<WebtoonModel>> snapshot) {
-    return ListView.separated(
-      scrollDirection: Axis.horizontal,
-      itemCount: snapshot.data!.length,
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      itemBuilder: (context, index) {
-        var webtoon = snapshot.data![index];
-        return Webtoon(
-          title: webtoon.title,
-          thumb: webtoon.thumb,
-          id: webtoon.id,
-        );
-      },
-      separatorBuilder: (context, index) => const SizedBox(
-        width: 20,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Liked Webtoons'),
+        title: const Text('좋아요'),
       ),
       body: FutureBuilder<List<WebtoonModel>>(
         future: likedWebtoons,
@@ -70,22 +51,25 @@ class _LikedScreenState extends State<LikedScreen> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No liked webtoons'));
           }
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 0.8,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.55,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+              ),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                var webtoon = snapshot.data![index];
+                return Webtoon(
+                  title: webtoon.title,
+                  thumb: webtoon.thumb,
+                  id: webtoon.id,
+                );
+              },
             ),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              var webtoon = snapshot.data![index];
-              return Webtoon(
-                title: webtoon.title,
-                thumb: webtoon.thumb,
-                id: webtoon.id,
-              );
-            },
           );
         },
       ),
