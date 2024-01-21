@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toonflix/models/webtoon_model.dart';
+import 'package:toonflix/screens/liked_screen.dart';
 import 'package:toonflix/service/api_service.dart';
 import 'package:toonflix/widgets/webtoon_widget.dart';
 
@@ -23,7 +24,15 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
         ),
         actions: <Widget>[
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite))
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LikedScreen()),
+              );
+            },
+            icon: const Icon(Icons.favorite),
+          )
         ],
       ),
       body: FutureBuilder(
