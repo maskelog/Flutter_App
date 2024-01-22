@@ -40,8 +40,14 @@ class _LikedScreenState extends State<LikedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('좋아요'),
-      ),
+          elevation: 2,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.green,
+          title: const Text(
+            '좋아요',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          )),
       body: FutureBuilder<List<WebtoonModel>>(
         future: likedWebtoons,
         builder: (context, snapshot) {
@@ -52,13 +58,15 @@ class _LikedScreenState extends State<LikedScreen> {
             return const Center(child: Text('No liked webtoons'));
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 0.55,
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
+                crossAxisSpacing: 10,
               ),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {

@@ -21,14 +21,14 @@ class HomeScreen extends StatelessWidget {
         foregroundColor: Colors.green,
         title: const Text(
           "오늘의 웹툰",
-          style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
         ),
         actions: <Widget>[
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LikedScreen()),
+                MaterialPageRoute(builder: (context) => const LikedScreen()),
               );
             },
             icon: const Icon(Icons.favorite),
