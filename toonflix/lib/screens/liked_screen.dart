@@ -12,28 +12,27 @@ class LikedScreen extends StatefulWidget {
 }
 
 class _LikedScreenState extends State<LikedScreen> {
-  late Future<List<WebtoonModel>> likedWebtoons;
+  List<WebtoonModel>? likedWebtoons;
 
   @override
   void initState() {
     super.initState();
-    likedWebtoons = _getLikedWebtoons();
+    _loadLikedWebtoons();
   }
 
-  Future<List<WebtoonModel>> _getLikedWebtoons() async {
+  Future<void> _loadLikedWebtoons() async {
     final prefs = await SharedPreferences.getInstance();
     final likedIds = prefs.getStringList('likedToons') ?? [];
-    List<WebtoonModel> likedWebtoons = [];
-
     try {
       List<WebtoonModel> allWebtoons = await ApiService.getTodaysToons();
-      likedWebtoons = allWebtoons
-          .where((webtoon) => likedIds.contains(webtoon.id))
-          .toList();
+      setState(() {
+        likedWebtoons = allWebtoons
+            .where((webtoon) => likedIds.contains(webtoon.id))
+            .toList();
+      });
     } catch (e) {
       print('Error fetching webtoon details: $e');
     }
-    return likedWebtoons;
   }
 
   void _unlikeWebtoon(String id) async {
@@ -43,7 +42,7 @@ class _LikedScreenState extends State<LikedScreen> {
     await prefs.setStringList('likedToons', likedIds);
 
     setState(() {
-      likedWebtoons = _getLikedWebtoons();
+      likedWebtoons?.removeWhere((webtoon) => webtoon.id == id);
     });
   }
 
@@ -51,49 +50,32 @@ class _LikedScreenState extends State<LikedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 2,
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.green,
-          title: const Text(
-            '좋아요',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-          )),
-      body: FutureBuilder<List<WebtoonModel>>(
-        future: likedWebtoons,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No liked webtoons'));
-          }
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 10,
-            ),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.55,
-                crossAxisSpacing: 10,
-              ),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                var webtoon = snapshot.data![index];
-                return Webtoon(
-                  title: webtoon.title,
-                  thumb: webtoon.thumb,
-                  id: webtoon.id,
-                  onUnliked: () => _unlikeWebtoon(webtoon.id),
-                  showUnlikedIcon: true,
-                );
-              },
-            ),
-          );
-        },
+        title: const Text('좋아요'),
       ),
+      body: likedWebtoons == null
+          ? const Center(child: CircularProgressIndicator())
+          : likedWebtoons!.isEmpty
+              ? const Center(child: Text('No liked webtoons'))
+              : GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.55,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  itemCount: likedWebtoons!.length,
+                  itemBuilder: (context, index) {
+                    var webtoon = likedWebtoons![index];
+                    return Webtoon(
+                      title: webtoon.title,
+                      thumb: webtoon.thumb,
+                      id: webtoon.id,
+                      onUnliked: () => _unlikeWebtoon(webtoon.id),
+                      showUnlikedIcon: true,
+                    );
+                  },
+                ),
     );
   }
 }
