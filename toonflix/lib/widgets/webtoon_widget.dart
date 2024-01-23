@@ -69,11 +69,15 @@ class Webtoon extends StatelessWidget {
             ],
           ),
           if (showUnlikedIcon && onUnliked != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Positioned(
+              top: 0,
+              right: 0,
               child: GestureDetector(
                 onTap: onUnliked,
-                child: const Icon(Icons.close, color: Colors.red),
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.red,
+                ),
               ),
             ),
         ],
