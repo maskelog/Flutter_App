@@ -3,12 +3,16 @@ import 'package:toonflix/screens/detail_screen.dart';
 
 class Webtoon extends StatelessWidget {
   final String title, thumb, id;
+  final VoidCallback? onUnliked;
+  final bool showUnlikedIcon;
 
   const Webtoon({
     Key? key,
     required this.title,
     required this.thumb,
     required this.id,
+    this.onUnliked,
+    this.showUnlikedIcon = false,
   }) : super(key: key);
 
   @override
@@ -27,38 +31,51 @@ class Webtoon extends StatelessWidget {
           ),
         );
       },
-      child: Column(
+      child: Stack(
+        alignment: Alignment.topRight,
         children: [
-          Hero(
-            tag: id,
-            child: Container(
-              width: 250,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 15,
-                    offset: const Offset(10, 10),
-                    color: Colors.black.withOpacity(0.5),
-                  )
-                ],
+          Column(
+            children: [
+              Hero(
+                tag: id,
+                child: Container(
+                  width: 250,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        offset: const Offset(10, 10),
+                        color: Colors.black.withOpacity(0.5),
+                      )
+                    ],
+                  ),
+                  child: Image.network(
+                    thumb,
+                    headers: const {
+                      'Referer': 'https://comic.naver.com',
+                    },
+                  ),
+                ),
               ),
-              child: Image.network(
-                thumb,
-                headers: const {
-                  'Referer': 'https://comic.naver.com',
-                },
+              const SizedBox(height: 10),
+              Text(
+                title,
+                style: const TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ],
+          ),
+          if (showUnlikedIcon && onUnliked != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: onUnliked,
+                child: const Icon(Icons.close, color: Colors.red),
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
         ],
       ),
     );

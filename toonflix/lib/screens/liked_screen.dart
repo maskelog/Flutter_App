@@ -36,6 +36,17 @@ class _LikedScreenState extends State<LikedScreen> {
     return likedWebtoons;
   }
 
+  void _unlikeWebtoon(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> likedIds = prefs.getStringList('likedToons') ?? [];
+    likedIds.remove(id);
+    await prefs.setStringList('likedToons', likedIds);
+
+    setState(() {
+      likedWebtoons = _getLikedWebtoons();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +86,8 @@ class _LikedScreenState extends State<LikedScreen> {
                   title: webtoon.title,
                   thumb: webtoon.thumb,
                   id: webtoon.id,
+                  onUnliked: () => _unlikeWebtoon(webtoon.id),
+                  showUnlikedIcon: true,
                 );
               },
             ),
